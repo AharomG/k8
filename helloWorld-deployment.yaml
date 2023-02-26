@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloWorld-deployment
+  labels:
+  #key-value for our app
+    app: helloWorld
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: helloWorld
+  template:
+    #this has to match deployment metadata
+    metadata:
+      labels: 
+        app: helloWorld
+    restartPolicy: Always
+    spec:
+      #to make sure only one pod is created for every node
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: helloWorld
+      #container on dockerhub
+      containers:
+      - name: test
+        image: helloWorld:latest
+        ports:
+        - containerPort: 8080
+        #webapp should expect this data to connect to mariaDB
+        env:
+        - name: DB_USER_NAME
+          value: user
+        - name: DB_PASS
+          value: 123456
+        - name: DB_URL
+          value: mariadb-service

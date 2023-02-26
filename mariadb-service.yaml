@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb-service
+spec:
+  type: ClusterIP
+  selector:
+  #this has to match the label in statefulset 
+    app: mariaDB
+  ports:
+  - protocol: TCP 
+    port: 8080
+    targetPort: 3306
+    
