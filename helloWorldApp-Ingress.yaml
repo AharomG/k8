@@ -4,10 +4,7 @@ metadata:
   name: helloWorldApp-ingress
   annotations: 
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/limit-rps: "5"
-    nginx.ingress.kubernetes.io/limit-connections: "3"
-    nginx.ingress.kubernetes.io/custom-http-errors: "50*"
-    nginx.ingress.kubernetes.io/default-backend: helloWorld-service
+    #maybe separate services, default backend and backup to the second node
 spec:
   tls:
   - host:
