@@ -10,13 +10,8 @@ spec:
   - host:
     - example.com 
     secretName: secret-tls
-  rules: 
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: helloWorld-service
-            port:
-              number: 80
+  defaultBackend:
+    service:
+      name: helloWorld-service
+      port:
+        number: 8080
